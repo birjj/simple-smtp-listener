@@ -1,4 +1,4 @@
-let EventEmitter = require("eventemitter2").EventEmitter2;
+let EventEmitter = require("events").EventEmitter;
 let SMTPServer = require("smtp-server").SMTPServer;
 let parseMail = require("mailparser").simpleParser;
 let logger = require("winston");
@@ -10,26 +10,33 @@ logger.cli();
  * Events:
  *   email@domain => (mail)
  *   err => (Error)
+ * Example:
+ *   let Mail = new SMTP();
+ *   Mail.on("test@example.com", mail=>{ ... });
  */
 module.exports = class SMTP extends EventEmitter {
     constructor(port=25) {
+        logger.debug(`[SMTP] Starting on :${port}`);
         super();
         this.server = new SMTPServer({
             authOptional: true,
             onData: this.handleData.bind(this)
         });
         this.server.listen(port);
-        this.server.on("error", this.logErr);
+        this.server.on("error", this.handleErr);
     }
     destroy(cb) {
+        logged.debug(`[SMTP] Destroying`);
         this.server.close(cb);
     }
-    logErr(err) {
+    handleErr(err) {
+        this.emit(err);
         logger.error(`[SMTP] Error: ${err}`);
     }
 
     handleData(stream, session, cb) {
         parseMail(stream, this.handleEmail.bind(this));
+        cb();
     }
     handleEmail(err, email) {
         if (err) {
@@ -37,9 +44,9 @@ module.exports = class SMTP extends EventEmitter {
             return logger.error(`[SMTP] Got malformed email: ${err}`);
         }
 
-        let targets = email.to.value;
-        for (var i = 0; i < targets.length; ++i) {
-            this.emit(targets[i].address, email);
+        logger.debug(`[SMTP] Got email to:`,JSON.stringify(email.to.value));
+        for (let target of email.to.value) {
+            this.emit(target.address, email);
         }
     }
 };
