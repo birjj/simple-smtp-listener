@@ -1,0 +1,21 @@
+{
+  "name": "steam-botcreator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "birjolaxew",
+  "license": "ISC",
+  "dependencies": {
+    "prompt": "^1.0.0",
+    "randomstring": "^1.1.5",
+    "smtp-server": "^3.0.1",
+    "steam-totp": "^1.4.0",
+    "steam-user": "^3.19.1",
+    "steamstore": "^1.5.0",
+    "terminal-kit": "^1.7.1",
+    "winston": "^2.3.1"
+  }
+}
