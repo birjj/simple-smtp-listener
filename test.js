@@ -1,6 +1,6 @@
 let amqp = require("amqp");
 let SMTP = require("./smtp.js");
-let Mail = new SMTP(2525, {
+let Mail = new SMTP(25, {
     host: "localhost",
     exchange: "emails"
 });

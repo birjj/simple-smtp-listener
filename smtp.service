@@ -1,0 +1,13 @@
+[Unit]
+Description=NodeJS SMTP server emitting received emails to the "emails" exchange
+
+[Service]
+ExecStart=/var/dev/smtp/smtp-service.js
+Restart=Always
+User=root
+Group=sudo
+Environment=NODE_ENV=production
+WorkingDirectory=/var/dev/smtp
+
+[Install]
+WantedBy=multi-user.target
