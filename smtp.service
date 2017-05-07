@@ -1,13 +1,13 @@
 [Unit]
 Description=NodeJS SMTP server emitting received emails to the "emails" exchange
+Requires=After=rabbitmq.service
 
 [Service]
-ExecStart=/var/dev/smtp/smtp-service.js
+ExecStart=/var/dev/simple-smtp/smtp-service.js
 Restart=Always
-User=root
-Group=sudo
+Environment=PATH=/usr/bin:/usr/local/bin
 Environment=NODE_ENV=production
-WorkingDirectory=/var/dev/smtp
+WorkingDirectory=/var/dev/simple-smtp
 
 [Install]
 WantedBy=multi-user.target
