@@ -1,7 +1,7 @@
 let EventEmitter = require("events").EventEmitter;
 let SMTPServer = require("smtp-server").SMTPServer;
 let parseMail = require("mailparser").simpleParser;
-let amqp = require("node-amqp");
+let amqp = require("amqp");
 let logger = require("winston");
 logger.cli();
 

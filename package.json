@@ -9,9 +9,9 @@
   "author": "birjolaxew",
   "license": "ISC",
   "dependencies": {
+    "amqp": "^0.2.6",
     "eventemitter2": "^4.1.0",
     "mailparser": "^2.0.5",
-    "node-amqp": "^1.2.1",
     "prompt": "^1.0.0",
     "randomstring": "^1.1.5",
     "smtp-server": "^3.0.1",
