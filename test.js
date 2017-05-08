@@ -1,4 +1,3 @@
-let amqp = require("amqp");
 let SMTP = require("./smtp.js");
 let Mail = new SMTP(25, {
     host: "localhost",
@@ -9,6 +8,7 @@ Mail.on("test@steam.jfagerberg.me", mail=>{
 });
 
 let Client = require("./client.js");
-Client.on("test@steam.jfagerberg.me", mail=>{
+let client = new Client();
+client.on("test@steam.jfagerberg.me", mail=>{
     console.log("Got mail from client:",mail);
 });
