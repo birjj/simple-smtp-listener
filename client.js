@@ -9,8 +9,11 @@ module.exports = class SMTPClient extends EventEmitter {
         super();
         this.conn = amqp.createConnection({host: "localhost"});
         this.exchange = exchange;
-        this.conn.on("ready", ()=>{
-            this.emit("ready");
+        this.ready = new Promise(res=>{
+            this.conn.on("ready", ()=>{
+                this.emit("ready");
+                res();
+            })
         });
         this.queues = {};
     }
@@ -20,17 +23,19 @@ module.exports = class SMTPClient extends EventEmitter {
      * @returns {Promise} => (queue)
      */
     listenForMails(address) {
-        if (this.queues[address]) { return Promise.resolve(); }
-        return new Promise(res=>{
-            let queue = this.conn.queue(address, ()=>{
-                queue.bind(this.exchange, address);
-                queue.subscribe((message,headers,deliverInfo,messageObj)=>{
-                    this.emit(address, message);
-                    messageObj.acknowledge(false);
+        if (this.queues[address]) { return Promise.resolve(this.queues[address]); }
+        return this.ready.then(()=>{
+            return new Promise(res=>{
+                let queue = this.conn.queue(address, ()=>{
+                    queue.bind(this.exchange, address);
+                    queue.subscribe((message,headers,deliverInfo,messageObj)=>{
+                        this.emit(address, message);
+                        messageObj.acknowledge(false);
+                    });
+                    res(queue);
                 });
-                res(queue);
+                this.queues[address] = queue;
             });
-            this.queues[address] = queue;
         });
     }
 
