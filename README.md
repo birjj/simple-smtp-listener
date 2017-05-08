@@ -33,3 +33,20 @@ client.on("test@example.com", ()=>{
 ## Mail object
 
 All listeners receive a single response, a `Mail` object. This is simply the email parsed by [Nodemailer's Mailparser](https://nodemailer.com/extras/mailparser/). See their documentation for details.
+
+## RabbitMQ
+
+If you need access to mails from non-JS code (or you don't want to use `SMTPClient`), you can instead listen to the [RabbitMQ](http://www.rabbitmq.com/) exchange.
+
+To run the server in RabbitMQ mode, do (these are also the values used if running the service):
+
+```javascript
+let SMTPServer = require("simple-smtp").Server;
+let server = new SMTPServer(25, { /* amqp settings */
+    host: "localhost",
+    exchange: "emails",
+    ... /* any extra parameters are passed straight to node-amqp */
+});
+```
+
+Then create queues and bind them to the exchange in whatever language you are using.
