@@ -1,7 +1,6 @@
 let amqp = require("amqp");
 let EventEmitter = require("events").EventEmitter;
 
-// @ts-ignore
 module.exports = class SMTPClient extends EventEmitter {
     /**
      * @param {String} exchange The exchange to bind queues to
@@ -36,7 +35,7 @@ module.exports = class SMTPClient extends EventEmitter {
     }
 
     /**
-     * Proxy for on
+     * Proxy for .on
      * Creates email queue if none exists
      * @param {String} event        The event to listen to
      * @param {Function} listener   The function to call
@@ -45,5 +44,6 @@ module.exports = class SMTPClient extends EventEmitter {
     on(event, listener) {
         super.on(event, listener);
         this.listenForMails(event);
+        return this;
     }
 };
