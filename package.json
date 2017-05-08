@@ -2,7 +2,7 @@
   "name": "simple-smtp",
   "version": "1.0.0",
   "description": "A simple SMTP listen server, emitting mails through RabbitMQ and as an EventEmitter",
-  "main": "client.js",
+  "main": "src/client.js",
   "author": "birjolaxew",
   "dependencies": {
     "amqp": "^0.2.6",
