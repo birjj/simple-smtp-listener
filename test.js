@@ -8,13 +8,7 @@ Mail.on("test@steam.jfagerberg.me", mail=>{
     console.log("Got mail from EventEmitter:",mail);
 });
 
-let conn = amqp.createConnection({host: "localhost"});
-conn.on("ready", ()=>{
-    var q = conn.queue("test", ()=>{
-        q.subscribe((message,headers,deliverInfo,messageObj)=>{
-            console.log("Got mail from RabbitMQ:",message);
-            messageObj.acknowledge(false);
-        });
-        q.bind("emails", "test@steam.jfagerberg.me");
-    });
+let Client = require("./client.js");
+Client.on("test@steam.jfagerberg.me", mail=>{
+    console.log("Got mail from client:",mail);
 });
