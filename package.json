@@ -1,24 +1,13 @@
 {
-  "name": "steam-botcreator",
+  "name": "simple-smtp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "A simple SMTP listen server, emitting mails through RabbitMQ and as an EventEmitter",
+  "main": "client.js",
   "author": "birjolaxew",
-  "license": "ISC",
   "dependencies": {
     "amqp": "^0.2.6",
-    "eventemitter2": "^4.1.0",
     "mailparser": "^2.0.5",
-    "prompt": "^1.0.0",
-    "randomstring": "^1.1.5",
     "smtp-server": "^3.0.1",
-    "steam-totp": "^1.4.0",
-    "steam-user": "^3.19.1",
-    "steamstore": "^1.5.0",
-    "terminal-kit": "^1.7.1",
     "winston": "^2.3.1"
   }
 }
