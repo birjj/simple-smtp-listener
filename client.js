@@ -1,7 +1,8 @@
 let amqp = require("amqp");
 let EventEmitter = require("events").EventEmitter;
+let Server = require("./smtp.js");
 
-module.exports = class SMTPClient extends EventEmitter {
+class SMTPClient extends EventEmitter {
     /**
      * @param {String} exchange The exchange to bind queues to
      */
@@ -51,4 +52,7 @@ module.exports = class SMTPClient extends EventEmitter {
         this.listenForMails(event);
         return this;
     }
-};
+}
+
+SMTPClient.Server = Server;
+module.exports = SMTPClient;
