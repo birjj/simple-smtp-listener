@@ -2,8 +2,6 @@ let EventEmitter = require("events").EventEmitter;
 let SMTPServer = require("smtp-server").SMTPServer;
 let parseMail = require("mailparser").simpleParser;
 let amqp = require("amqp");
-let logger = require("winston");
-logger.cli();
 
 /**
  * Acts as a basic listener SMTP server, listening for all emails.
@@ -29,7 +27,7 @@ module.exports = class SMTP extends EventEmitter {
      *                      }
      */
     constructor(port=2525, amqp) {
-        logger.debug(`[SMTP] Starting on :${port}`);
+        console.log(`[SMTP] Starting on :${port}`);
         super();
         this.server = new SMTPServer({
             authOptional: true,
@@ -43,12 +41,12 @@ module.exports = class SMTP extends EventEmitter {
         }
     }
     destroy(cb) {
-        logger.debug(`[SMTP] Destroying`);
+        console.log(`[SMTP] Destroying`);
         this.server.close(cb);
     }
     handleErr(err) {
         this.emit(err);
-        logger.error(`[SMTP] Error: ${err}`);
+        console.log(`[SMTP] Error: ${err}`);
     }
 
     setupAMQP(options) {
@@ -88,10 +86,11 @@ module.exports = class SMTP extends EventEmitter {
     handleEmail(err, email) {
         if (err) {
             this.emit("err",err);
-            return logger.error(`[SMTP] Got malformed email: ${err}`);
+            console.log(`[SMTP] Got malformed email: ${err}`);
+            return;
         }
 
-        logger.debug(`[SMTP] Got email to:`,JSON.stringify(email.to.value));
+        console.log(`[SMTP] Got email to:`,JSON.stringify(email.to.value));
         for (let target of email.to.value) {
             this.emit(target.address, email);
         }

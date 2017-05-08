@@ -7,7 +7,6 @@
   "dependencies": {
     "amqp": "^0.2.6",
     "mailparser": "^2.0.5",
-    "smtp-server": "^3.0.1",
-    "winston": "^2.3.1"
+    "smtp-server": "^3.0.1"
   }
 }
