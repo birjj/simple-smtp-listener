@@ -43,7 +43,7 @@ module.exports = class SMTP extends EventEmitter {
         }
     }
     destroy(cb) {
-        logged.debug(`[SMTP] Destroying`);
+        logger.debug(`[SMTP] Destroying`);
         this.server.close(cb);
     }
     handleErr(err) {
@@ -67,7 +67,12 @@ module.exports = class SMTP extends EventEmitter {
         });
     }
 
-    emit(key, data) {
+    /**
+     * @param {String} key  Key to emit
+     * @param {any} data    Data to emit
+     * @return {Boolean}
+     */
+    emit(key, data=undefined) {
         super.emit(key,data);
 
         // publish to amqp if we should
