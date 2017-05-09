@@ -4,11 +4,11 @@ Requires=rabbitmq.service
 After=rabbitmq.service
 
 [Service]
-ExecStart=/var/dev/simple-smtp/service/smtp-service.js
+ExecStart=/var/dev/simple-smtp-listen/service/smtp-service.js
 Restart=always
 Environment=PATH=/usr/bin:/usr/local/bin
 Environment=NODE_ENV=production
-WorkingDirectory=/var/dev/simple-smtp
+WorkingDirectory=/var/dev/simple-smtp-listen
 
 [Install]
 WantedBy=multi-user.target

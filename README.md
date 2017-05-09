@@ -1,4 +1,4 @@
-# simple-smtp
+# simple-smtp-listen
 
 A NodeJS script that acts as a simple SMTP listen server. Accepts all emails, and emits them both as an EventEmitter and optionally through RabbitMQ.
 
@@ -7,7 +7,7 @@ A NodeJS script that acts as a simple SMTP listen server. Accepts all emails, an
 If only 1 script needs to receive mails:
 
 ```javascript
-let SMTPServer = require("simple-smtp").Server;
+let SMTPServer = require("simple-smtp-listen").Server;
 let server = new SMTPServer(25 /* port */);
 server.on("test@example.com", (mail)=>{
     ...
@@ -16,19 +16,21 @@ server.on("test@example.com", (mail)=>{
 
 ## Usage (multi access)
 
-If multiple scripts need to receive mails, create a symlink at `/var/dev/simple-smtp/` pointing to the working directory, then create a symlink at `/etc/systemd/system/simple-smtp.service` pointing to `./service/smtp.service`. Finally run `sudo systemctl start simple-smtp`. This starts the server and keeps it running should it crash.
+If multiple scripts need to receive mails, create a symlink at `/var/dev/simple-smtp-listen/` pointing to the working directory, then create a symlink at `/etc/systemd/system/simple-smtp-listen.service` pointing to `./service/smtp.service`. Finally run `sudo systemctl start simple-smtp-listen`. This starts the server and keeps it running should it crash.
 
 If you aren't running systemd, do the equivalent on your system.
 
 Then in your scripts do
 
 ```javascript
-let SMTPClient = require("simple-smtp");
+let SMTPClient = require("simple-smtp-listen");
 let client = new SMTPClient();
 client.on("test@example.com", ()=>{
     ...
 });
 ```
+
+This requires you to have RabbitMQ installed and running on localhost, with the `guest:guest` user active (for other users edit [`service/smtp-service.js`](service/smtp-service.js) as needed).
 
 ## Mail object
 
@@ -41,7 +43,7 @@ If you need access to mails from non-JS code (or you don't want to use `SMTPClie
 To run the server in RabbitMQ mode, do (these are also the values used if running the service):
 
 ```javascript
-let SMTPServer = require("simple-smtp").Server;
+let SMTPServer = require("simple-smtp-listen").Server;
 let server = new SMTPServer(25, { /* amqp settings */
     host: "localhost",
     exchange: "emails",
