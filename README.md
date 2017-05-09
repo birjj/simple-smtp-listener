@@ -16,7 +16,7 @@ server.on("test@example.com", (mail)=>{
 
 ## Usage (multi access)
 
-If multiple scripts need to receive mails, create a symlink at `/var/dev/simple-smtp-listen/` pointing to the working directory, then create a symlink at `/etc/systemd/system/simple-smtp-listen.service` pointing to `./service/smtp.service`. Finally run `sudo systemctl start simple-smtp-listen`. This starts the server and keeps it running should it crash.
+If multiple scripts need to receive mails, create a symlink at `/var/dev/simple-smtp-listen/` pointing to the working directory, then create a symlink at `/etc/systemd/system/simple-smtp-listen.service` pointing to `./service/simple-smtp-listen.service`. Finally run `sudo systemctl start simple-smtp-listen`. This starts the server and keeps it running should it crash.
 
 If you aren't running systemd, do the equivalent on your system.
 
