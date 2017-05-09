@@ -59,7 +59,7 @@ module.exports = class SMTP extends EventEmitter {
             this.exchange = this.amqp.exchange(
                 exchange,
                 {
-                    type: "direct",
+                    type: "topic",
                     autoDelete: false
                 });
         });
