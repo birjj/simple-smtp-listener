@@ -67,7 +67,7 @@ class SMTPClient extends EventEmitter {
         this.emit("*", mail);
         for (let receipient of mail.to.value) {
             this.debug("Emitting",receipient);
-            this.emit(receipient, mail);
+            this.emit(receipient.address, mail);
         }
     }
 
