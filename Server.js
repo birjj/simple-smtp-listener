@@ -82,6 +82,11 @@ module.exports = class SMTP extends EventEmitter {
 
         this.debug(`Got email to:`,JSON.stringify(email.to.value));
         this.emit("email", email);
+
+        for (let receipient of email.to.value) {
+            this.debug("Emitting",receipient);
+            super.emit(receipient, email);
+        }
     }
     /**
      * Logs if debug is enabled

@@ -1,4 +1,4 @@
-# simple-smtp-listen
+# simple-smtp-listener
 
 A NodeJS script that acts as a simple SMTP listen server. Accepts all emails, and emits them both as an EventEmitter and through a socket.
 
