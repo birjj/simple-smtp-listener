@@ -24,12 +24,10 @@ module.exports = class SMTP extends EventEmitter {
      * @param {String} [opts.socketID]  The socket to emit to
      */
     constructor(port=2525, opts={}) {
-        if (opts.debug) {
-            console.log(`[SMTP/server] Starting on :${port}`);
-        }
-
         super();
         this.opts = opts;
+
+        this.debug(`Starting on :${port}`);
         this.server = new SMTPServer({
             authOptional: true,
             onData: this.handleData.bind(this)
@@ -40,7 +38,7 @@ module.exports = class SMTP extends EventEmitter {
         ipc.config.id = opts.socketID || "simple-smtp-listener";
         ipc.serve(
             ()=>{
-                console.log("[SMTP/server] Serving");
+                this.debug("Ready");
                 super.emit("ready");
                 this.ipc = ipc.server;
             }
@@ -48,16 +46,12 @@ module.exports = class SMTP extends EventEmitter {
         ipc.server.start();
     }
     destroy(cb) {
-        if (this.opts.debug) {
-            console.log(`[SMTP/server] Destroying`);
-        }
+        this.debug("Destroying");
         this.emit("destroyed");
         this.server.close(cb);
     }
     handleErr(err) {
-        if (this.opts.debug) {
-            console.log(`[SMTP/server] Error: ${err}`);
-        }
+        this.debug(`Error: ${err}`);
         super.emit("err", err);
     }
 
@@ -82,15 +76,18 @@ module.exports = class SMTP extends EventEmitter {
     handleEmail(err, email) {
         if (err) {
             this.emit("err",err);
-            if (this.opts.debug) {
-                console.log(`[SMTP/server] Got malformed email: ${err}`);
-            }
+            this.debug(`Got malformed email: ${err}`);
             return;
         }
 
-        if (this.opts.debug) {
-            console.log(`[SMTP/server] Got email to:`,JSON.stringify(email.to.value));
-        }
+        this.debug(`Got email to:`,JSON.stringify(email.to.value));
         this.emit("email", email);
+    }
+    /**
+     * Logs if debug is enabled
+     * @param {...any} data
+     */
+    debug(data) {
+        console.log.apply(console, ["[SMTP/server", ...arguments]);
     }
 };
