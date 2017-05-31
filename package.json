@@ -1,12 +1,12 @@
 {
-  "name": "simple-smtp",
+  "name": "simple-smtp-listener",
   "version": "1.0.0",
-  "description": "A simple SMTP listen server, emitting mails through RabbitMQ and as an EventEmitter",
-  "main": "src/client.js",
+  "description": "A simple SMTP listen server",
+  "main": "./Client.js",
   "author": "birjolaxew",
   "dependencies": {
-    "amqp": "^0.2.6",
     "mailparser": "^2.0.5",
+    "node-ipc": "^9.0.1",
     "smtp-server": "^3.0.1"
   }
 }
