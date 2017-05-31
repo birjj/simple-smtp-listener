@@ -85,7 +85,7 @@ module.exports = class SMTP extends EventEmitter {
 
         for (let receipient of email.to.value) {
             this.debug("Emitting",receipient);
-            super.emit(receipient, email);
+            super.emit(receipient.address, email);
         }
     }
     /**
