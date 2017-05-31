@@ -93,6 +93,6 @@ module.exports = class SMTP extends EventEmitter {
      * @param {...any} data
      */
     debug(data) {
-        console.log.apply(console, ["[SMTP/server", ...arguments]);
+        console.log.apply(console, ["[SMTP/server]", ...arguments]);
     }
 };
