@@ -7,8 +7,8 @@ A NodeJS script that acts as a simple SMTP listen server. Accepts all emails, an
 If only 1 script needs to receive mails:
 
 ```javascript
-let SMTPServer = require("simple-smtp-listener").Server;
-let server = new SMTPServer(25 /* port */);
+const SMTPServer = require("simple-smtp-listener").Server;
+const server = new SMTPServer(25 /* port */);
 server.on("test@example.com", (mail)=>{
     ...
 });
@@ -23,8 +23,8 @@ If you aren't running systemd, do the equivalent on your system.
 Then in your scripts do
 
 ```javascript
-let SMTPClient = require("simple-smtp-listener");
-let client = new SMTPClient();
+const SMTPClient = require("simple-smtp-listener");
+const client = new SMTPClient();
 client.on("test@example.com", ()=>{
     ...
 });
