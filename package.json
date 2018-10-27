@@ -1,7 +1,9 @@
 {
   "name": "simple-smtp-listener",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple SMTP listen server",
+  "repository": "https://github.com/birjolaxew/simple-smtp-listener.git",
+  "keywords": ["email", "mail", "smtp"],
   "main": "./Client.js",
   "author": "birjolaxew",
   "dependencies": {
