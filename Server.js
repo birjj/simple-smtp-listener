@@ -93,6 +93,8 @@ module.exports = class SMTP extends EventEmitter {
      * @param {...any} data
      */
     debug(data) {
-        if (this.opts.debug === true) console.log.apply(console, ["[SMTP/server]", ...arguments]);
+        if (this.opts.debug) {
+            console.log.apply(console, ["[SMTP/server]", ...arguments]);
+        }
     }
 };
