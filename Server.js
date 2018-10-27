@@ -65,7 +65,7 @@ module.exports = class SMTP extends EventEmitter {
         // @ts-ignore
         this.ipc.broadcast(
             key,
-            data            
+            data
         );
     }
 
@@ -93,6 +93,8 @@ module.exports = class SMTP extends EventEmitter {
      * @param {...any} data
      */
     debug(data) {
-        console.log.apply(console, ["[SMTP/server]", ...arguments]);
+        if (this.opts.debug) {
+            console.log.apply(console, ["[SMTP/server]", ...arguments]);
+        }
     }
 };
