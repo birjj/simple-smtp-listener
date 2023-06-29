@@ -8,7 +8,7 @@
   "author": "birjolaxew",
   "dependencies": {
     "mailparser": "^2.0.5",
-    "node-ipc": "^9.0.1",
+    "@achrinza/node-ipc": "^9.2.5",
     "smtp-server": "^3.0.1"
   }
 }
